@@ -1,0 +1,148 @@
+[{
+    "userName": "Bob Dylan",
+    "email": "bob_dylam@gmail.com",
+    "password": "sresfw4563fw4dse",
+    "projects": [
+        {"projectName": "Time tracking app",
+        "companyName": "General Assempbly",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi amet atque molestiae fugiat alias sint vero, nihil id vitae mollitia placeat assumenda consectetur aspernatur voluptatum iusto dolore! Aspernatur tempora dolore pariatur ea voluptatem iure in nemo quam debitis impedit, doloribus porro saepe atque totam enim maxime error? Quas amet quibusdam sequi soluta nesciunt et reprehenderit sapiente corrupti non fugit eveniet, quia eos nemo cum voluptatum ab culpa autem blanditiis repudiandae officia dolore at! Eius culpa doloribus iure sapiente consequuntur veritatis libero quisquam repellat hic. Consectetur sapiente inventore laudantium quidem labore, saepe odit commodi quis praesentium nam omnis accusamus sit officiis earum.",
+        "startDate": "2019-09-01",
+        "payRate": "35",
+        "currency": "USD",
+        "extraHoursTime": "8",
+        "extraHoursPayRate": "50",
+        "timeLimitNumber": "50",
+        "timeLimitUnit": "week",
+        "workingTime": [
+            {"startTime": "2019-09-21T08:28:56.782Z",
+            "endTime": "2019-09-21T15:55:56.782Z",
+            "projectTopic": "Setup Server",
+            "day": "2019-09-21"
+            }, 
+            {"startTime": "2019-09-22T08:28:56.782Z",
+            "endTime": "2019-09-22T16:18:56.782Z",
+            "projectTopic": "Creating routes",
+            "day": "2019-09-22"
+            },
+            {"startTime": "2019-09-24T07:28:56.782Z",
+            "endTime": "2019-09-24T16:08:56.782Z",
+            "projectTopic": "Creating routes",
+            "day": "2019-09-24"
+            },
+            {"startTime": "2019-09-25T07:28:56.782Z",
+            "endTime": "2019-09-25T13:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-09-25"
+            },
+            {"startTime": "2019-09-26T09:28:56.782Z",
+            "endTime": "2019-09-26T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-09-26"
+            },
+            {"startTime": "2019-09-27T09:28:56.782Z",
+            "endTime": "2019-09-27T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-09-27"
+            },
+            {"startTime": "2019-09-28T09:28:56.782Z",
+            "endTime": "2019-09-28T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-09-28"
+            },
+            {"startTime": "2019-10-02T08:28:56.782Z",
+            "endTime": "2019-10-02T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-02"
+            },
+            {"startTime": "2019-10-03T10:28:56.782Z",
+            "endTime": "2019-10-03T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-03"
+            },
+            {"startTime": "2019-10-05T08:28:56.782Z",
+            "endTime": "2019-10-05T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-05"
+            },
+            {"startTime": "2019-10-06T11:28:56.782Z",
+            "endTime": "2019-10-06T16:08:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-06"
+            },
+            {"startTime": "2019-10-07T12:28:56.782Z",
+            "endTime": "2019-10-07T16:26:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-07"
+            },
+            {"startTime": "2019-10-08T09:28:56.782Z",
+            "endTime": "2019-10-08T17:31:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-08"
+            },
+            {"startTime": "2019-10-10T11:28:56.782Z",
+            "endTime": "2019-10-10T16:51:56.782Z",
+            "projectTopic": "Writing code",
+            "day": "2019-10-10"
+            },
+            {"startTime": "2019-10-11T08:28:56.782Z",
+            "endTime": "2019-10-11T17:24:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-07"
+            },
+            {"startTime": "2019-10-12T06:28:56.782Z",
+            "endTime": "2019-10-12T17:08:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-12"
+            },
+            {"startTime": "2019-10-13T09:28:56.782Z",
+            "endTime": "2019-10-13T17:43:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-13"
+            },
+            {"startTime": "2019-10-14T11:28:56.782Z",
+            "endTime": "2019-10-14T17:11:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-14"
+            },
+            {"startTime": "2019-10-17T09:28:56.782Z",
+            "endTime": "2019-10-17T17:25:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-17"
+            },
+            {"startTime": "2019-10-18T10:28:56.782Z",
+            "endTime": "2019-10-18T17:08:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-18"
+            },
+            {"startTime": "2019-10-19T13:28:56.782Z",
+            "endTime": "2019-10-19T17:58:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-19"
+            },
+            {"startTime": "2019-10-20T08:35:56.782Z",
+            "endTime": "2019-10-20T17:33:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-20"
+            },
+            {"startTime": "2019-10-21T08:35:56.782Z",
+            "endTime": "2019-10-19T17:03:56.782Z",
+            "projectTopic": "Debuging code",
+            "day": "2019-10-21"
+            }
+
+        ]
+    },
+    {
+        "projectName": "Subscription FOrm",
+        "companyName": "Ramen Appreciation Group",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi amet atque molestiae fugiat alias sint vero, nihil id vitae mollitia placeat assumenda consectetur aspernatur voluptatum iusto dolore! Aspernatur tempora dolore pariatur ea voluptatem iure in nemo quam debitis impedit, doloribus porro saepe atque totam enim maxime error? Quas amet quibusdam sequi soluta nesciunt et reprehenderit sapiente corrupti non fugit eveniet, quia eos nemo cum voluptatum ab culpa autem blanditiis repudiandae officia dolore at! Eius culpa doloribus iure sapiente consequuntur veritatis libero quisquam repellat hic. Consectetur sapiente inventore laudantium quidem labore, saepe odit commodi quis praesentium nam omnis accusamus sit officiis earum.",
+        "startDate": "2019-10-11",
+        "payRate": "45",
+        "currency": "USD",
+        "extraHoursTime": "8",
+        "extraHoursPayRate": "60",
+        "timeLimitNumber": "50",
+        "timeLimitUnit": "week"
+    }
+    ]
+}]
