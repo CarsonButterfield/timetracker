@@ -86,7 +86,7 @@ app.post('/signup',(req,res) => {
     
 })
 
-app.post('/login',(req,res) => {
+app.post('api/v1/login',(req,res) => {
     {
         console.log('Request session object --> ', req.session);
         db.User.findOne({ email: req.body.email }, (err, foundUser) => {
@@ -126,6 +126,11 @@ app.post('/login',(req,res) => {
 })
 app.get('/profile',(req,res)=>{
     res.sendFile('views/profile.html', {
+        root: `${__dirname}/`
+      });
+})
+app.get('/login',(req,res)=>{
+    res.sendFile('views/login.html', {
         root: `${__dirname}/`
       });
 })

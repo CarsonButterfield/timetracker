@@ -2,7 +2,14 @@ $('#button').on('click',() => {
     getProfile()
     console.log('beep')
 })
-
+$('#login').on('click',(event)=>{
+    event.preventDefault()
+    let email = $('#email').val()
+    let password = $('#password').val()
+    $.ajax({
+        method: 'POST'
+    })
+})
 const getProfile = () => {
     fetch(`http://localhost:5000/api/v1/profile/123`, {
       method: 'GET',
@@ -23,4 +30,4 @@ const getProfile = () => {
       console.log(user)
 
   }
-  getProfile();
+ 
