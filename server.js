@@ -137,7 +137,8 @@ app.get('/login',(req,res)=>{
 app.get('/api/v1/profile/:id',(req,res) => {
     console.log('beep')
    let userId = req.params.id
-   db.users.findByID(userId,(err,user)=>{
+   db.User.findByID(userId,(err,user)=>{
+       console.log('searching')
        if(err){console.log(err)
         return
     }
