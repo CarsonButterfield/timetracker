@@ -1,0 +1,24 @@
+Main Page
+-User should see simple logo and a signup/signin box
+-the signout box should be able to switch to a signin button when the user clicks a button
+-user should be presented with the form to create there account 
+-the user should be informed if any of the data they enterred is incorrect
+-after filling in the form the user should be automatically taken to there profile/project page
+
+User Projects Page 
+-User should see there current projects and time totals
+-projects should be clickable to link them to a more detailed project page
+-Stretch Goal Add charts/graphs for money and time totals 
+
+Project Page 
+-User should see the history of timestamps with description of each timestamps task
+-User should see the Project name and description
+-User should have a button to start a timer that makes new timestamps 
+-User should have box to put in name of the task that is currently being tracked
+-Stretch goal add charts of time spent at bottom of page
+-Stretch goal User goals for hours or income
+
+New Project Page 
+-User should have a form that allows them to input all the data needed for a new project
+-User should be informed if they input any invalid data 
+-User should be taken to the Project page of the project they created when they submit 
