@@ -7,3 +7,5 @@ const TimeStampSchema = new Schema({
     projectTopic:String,
     day:Date,
 })
+
+module.exports = mongoose.model('Timestamp',TimeStampSchema)

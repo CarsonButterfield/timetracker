@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema 
+const Timestamp = require('./Timestamp')
 const Project = new Schema({
     projectName:String,
     companyName:String,
@@ -11,5 +12,7 @@ const Project = new Schema({
     extraHoursPayRate:Number,
     timeLimitNumber:Number,
     timeLimitUnit:String,
-    workingTime: [WorkHours]
+    workingTime: [Object]
 }) 
+
+module.exports = mongoose.model('Project',Project)
