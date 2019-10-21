@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    width: 70%;
+    margin: auto;
+}
+
+.flex-container-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.center-container {
+    text-align: center;
+}
+.center-container * {
+    display: inline-block;
+}
+
+#project-head * {
+    margin: 20px 0;
+}
+
+#project-head  h2 {
+    font-size: 35px;
+}
+
+#project-head p {
+    color: gray;
+}
+
+.text-container {
+    font-size: 15px;
+}
+.alert {
+    border: 2px red solid;
+    color: red;
+}
+
+/* Clock additions */
+ /* input */
+ #topic {
+     width: 400px;
+     height: 30px;
+     padding: 3px 10px;
+     font-size: 15px;
+     text-align: center;
+ }
+
+ topic:focus {
+    border: none;
+ }
+/* buttons */
+#start-time, #stop-time {
+    width:180px;
+    height: 30px;
+    margin: 10px;
+}
+
+/* CLOCK SECTION START */
+.clock {
+    height:100px;
+    /* position:relative; */
+    top:50%;
+    left:50%;
+    width:450;
+    /* margin-left:-450px;
+    margin-top:-100px; */
+    text-align:center;
+  }
+  
+  .digit {
+    width:100px;
+    height:165px;
+    margin:0 5px;
+    position:relative;
+    display:inline-block;
+  }
+  
+  .digit .segment {
+    background: #4f9c3a;
+    border-radius:5px;
+    position:absolute;
+    opacity:0.15;
+    transition:opacity 0.2s;
+    -webkit-transition:opacity 0.2s;
+    -ms-transition:opacity 0.2s;
+    -moz-transition:opacity 0.2s;
+    -o-transition:opacity 0.2s;
+  }
+  
+  .digit .segment.on, .separator {
+    opacity:1;
+    box-shadow:0 0 50px rgba(79, 156, 58,0.7);
+    transition:opacity 0s;
+    -webkit-transition:opacity 0s;
+    -ms-transition:opacity 0s;
+    -moz-transition:opacity 0s;
+    -o-transition:opacity 0s;
+  }
+  
+  .separator {
+    width:20px;
+    height:20px;
+    background:#4f9c3a;
+    border-radius:50%;
+    display:inline-block;
+    position:relative;
+    top:-70%;
+  }
+  
+  .digit .segment:nth-child(1) {
+    top:10px;
+    left:20px;
+    right:20px;
+    height:10px;
+  }
+  
+  .digit .segment:nth-child(2) {
+    top:20px;
+    right:10px;
+    width:10px;
+    height:75px;
+    height:calc(50% - 25px);
+  }
+  
+  .digit .segment:nth-child(3) {
+    bottom:20px;
+    right:10px;
+    width:10px;
+    height:75px;
+    height:calc(50% - 25px);
+  }
+  
+  .digit .segment:nth-child(4) {
+    bottom:10px;
+    right:20px;
+    height:10px;
+    left:20px;
+  }
+  
+  .digit .segment:nth-child(5) {
+    bottom:20px;
+    left:10px;
+    width:10px;
+    height:75px;
+    height:calc(50% - 25px);
+  }
+  
+  .digit .segment:nth-child(6) {
+    top:20px;
+    left:10px;
+    width:10px;
+    height:75px;
+    height:calc(50% - 25px);
+  }
+  
+  .digit .segment:nth-child(7) {
+    bottom:95px;
+    bottom:calc(50% - 5px);
+    right:20px;
+    left:20px;
+    height:10px;
+  }
+/* CLOCK SECTION END */
