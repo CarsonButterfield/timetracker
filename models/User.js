@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
+const Projects = require('./Project');
 
 const UserSchema = new Schema({
     userName:String,
-    projets: [Object],
+    projects: [Projects.schema],
     password:String,
     email:String,
 })
