@@ -124,6 +124,15 @@ app.post('/login',(req,res) => {
         });
       }
 })
-app.get('/session',(req,res)=>{
-console.log(req.session)
+app.get('/profile',(req,res)=>{
+    res.sendFile('views/profile.html', {
+        root: `${__dirname}/`
+      });
+})
+app.get('/api/v1/profile/:id',(req,res) => {
+   console.log('server hit')
+   res.status(200).json({
+       meep:'beep'
+   })
+
 })
