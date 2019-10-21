@@ -1,0 +1,19 @@
+{
+  "name": "timetracker",
+  "version": "1.0.0",
+  "description": "Timetracker for freelancers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.generalassemb.ly/CarsonButterfield/timetracker.git"
+  },
+  "author": "Carson/Tanya",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5"
+  }
+}
