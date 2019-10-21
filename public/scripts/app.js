@@ -1,17 +1,27 @@
+const onSuccess = (data) => {
+    console.log(data)
+}
+const onErr = (err) => {
+    console.log(err)
+}
 $('#button').on('click',() => {
     getProfile()
     console.log('beep')
 })
-$('#login').on('click',(event)=>{
+$('#login').on('submit',(event)=>{
     event.preventDefault()
     let email = $('#email').val()
     let password = $('#password').val()
     $.ajax({
-        method: 'POST'
+        method: 'POST',
+        url : "./api/v1/login",
+        data:{email,password},
+        success:onSuccess,
+        error:onErr
     })
 })
 const getProfile = () => {
-    fetch(`http://localhost:5000/api/v1/profile/123`, {
+    fetch(`./api/v1/profile/123`, {
       method: 'GET',
       credentials: 'include',
       headers: {

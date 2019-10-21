@@ -86,7 +86,7 @@ app.post('/signup',(req,res) => {
     
 })
 
-app.post('api/v1/login',(req,res) => {
+app.post('/api/v1/login',(req,res) => {
     {
         console.log('Request session object --> ', req.session);
         db.User.findOne({ email: req.body.email }, (err, foundUser) => {
