@@ -12,7 +12,7 @@ const Project = new Schema({
     extraHoursPayRate:Number,
     timeLimitNumber:Number,
     timeLimitUnit:String,
-    workingTime: [Object]
+    workingTime: [Timestamp.schema]
 }) 
 
 module.exports = mongoose.model('Project',Project)

@@ -1,32 +1,56 @@
 const express = require('express')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const app = express();
-const db = require('./models')
+// const db = require('./models')
 const session = require('express-session');
 const PORT = process.env.PORT || 5000;
-app.use(express.static('public'));
+
+// Routes
+const routes = require('./routes');
+
+
+// app.use(express.static('public'));
+
+
+// ------------------------------------------------- MIDDLEWARE ------------------------------------------------- //
 
 // body parser config to accept our datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Serve Public Directory
+app.use(express.static(__dirname + '/public'));
+
 app.use(session({
     secret: 'Dont Tell',
-   resave: true, // save session on every request
+    resave: true, // save session on every request
     saveUninitialized: false, // Only save session if session exists on req object.
   }));
-console.log(db)
+// console.log(db)
 
+
+// ------------------------------------------------- ENDPOINTS ------------------------------------------------- //
+
+// HTML Routes
+app.use('/', routes.views);
+
+// API Routes
+app.use('/api/v1', routes.api);
+
+
+// ----------------------------------------------- START SERVER ----------------------------------------------- //
 app.listen(PORT, ()=>{
     console.log(`server started on port ${PORT}`)
 })
 
-app.get('/',(req,res)=> {
-    res.send('meep beep')
-})
 
+
+// app.get('/',(req,res)=> {
+//     res.send('meep beep')
+// })
+/* 
 app.post('/signup',(req,res) => {
     console.log('beep')
     console.log(req.body)
@@ -84,8 +108,8 @@ app.post('/signup',(req,res) => {
     
     })
     
-})
-
+}) */
+/* 
 app.post('/api/v1/login',(req,res) => {
     {
         console.log('Request session object --> ', req.session);
@@ -124,36 +148,39 @@ app.post('/api/v1/login',(req,res) => {
         });
       }
 })
-app.get('/profile/:id',(req,res)=>{
-    res.sendFile('views/profile.html', {
-        root: `${__dirname}/`
-      });
-})
-app.get('/login',(req,res)=>{
-    res.sendFile('views/login.html', {
-        root: `${__dirname}/`
-      });
-})
-app.get('/api/v1/profile/:id',(req,res) => {
-    console.log('beep')
-   let userId = req.params.id
-   db.User.findByID(userId,(err,user)=>{
-       console.log('searching')
-       if(err){console.log(err)
-        return
-    }
-    if(!user){
-        res.json({
-            status:400,
-            error:"Something went wrong"
-        })
-    }
-    else{
-        res.json({
-            status:201,
-            data:user,
-        })
-    }
-   })
+ */
 
-})
+// app.get('/profile/:id',(req,res)=>{
+//     res.sendFile('views/profile.html', {
+//         root: `${__dirname}/`
+//       });
+// })
+
+// app.get('/login',(req,res)=>{
+//     res.sendFile('views/login.html', {
+//         root: `${__dirname}/`
+//       });
+// })
+// app.get('/api/v1/profile/:id',(req,res) => {
+//     console.log('beep')
+//    let userId = req.params.id
+//    db.User.findByID(userId,(err,user)=>{
+//        console.log('searching')
+//        if(err){console.log(err)
+//         return
+//     }
+//     if(!user){
+//         res.json({
+//             status:400,
+//             error:"Something went wrong"
+//         })
+//     }
+//     else{
+//         res.json({
+//             status:201,
+//             data:user,
+//         })
+//     }
+//    })
+
+// })
