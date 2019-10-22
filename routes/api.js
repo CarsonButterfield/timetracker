@@ -13,9 +13,12 @@ router.post('/login', ctrl.auth.createSession);
 // ----------------------------- PROFILE -------------------------- //
 
 router.get('/profile/:userId', ctrl.auth.showProfile);
+// router.get('/project/:projectId', ctrl.project.showProject);
 
-module.exports = router;
 
 //-------------------------------NEW DATA --------------------------//
 
-router.post('/newProject',ctrl.create.newProject)
+// router.post('/newProject', ctrl.create.newProject)
+
+
+module.exports = router;
