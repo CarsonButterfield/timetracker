@@ -15,3 +15,7 @@ router.post('/login', ctrl.auth.createSession);
 router.get('/profile/:userId', ctrl.auth.showProfile);
 
 module.exports = router;
+
+//-------------------------------NEW DATA --------------------------//
+
+router.post('/newProject',ctrl.create.newProject)
