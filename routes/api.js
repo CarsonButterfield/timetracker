@@ -23,5 +23,7 @@ router.get('/all', ctrl.auth.showAll);
 
 router.post('/newProject', ctrl.create.newProject)
 
+// Set start time
+router.post('/startTime/:projectId', ctrl.create.newTimeStamp);
 
 module.exports = router;

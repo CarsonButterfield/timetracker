@@ -23,7 +23,30 @@ const newProject = (req,res) => {
     
 }
 
+const newTimeStamp = (req, res) => {
+    console.log("user ID: ==>>>" + req.session.currentUser);
+    db.User.findById(req.session.currentUser, (err, user)=>{
+        if(err){console.log(err)
+            return
+        }
+        const foundProject = user.projects.find(project => project._id.toString() === req.params.projectId)
+        console.log("project ID ===>> " + foundProject._id);
+        let newTimeStamp = req.body;
+        foundProject.workingTime.push(newTimeStamp);
+        user.save((err, user)=>{
+            if (err) console.log(err);
+            console.log(user);
+        })
+
+         res.json({
+             status: 201,
+             data: foundProject,
+             newTimeStamp: newTimeStamp,
+         })
+    })
+}
 
 module.exports = {
     newProject,
+    newTimeStamp,
 }

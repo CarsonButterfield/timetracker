@@ -73,12 +73,47 @@ var setNumber = function(digit, number, on) {
 
 
 
+const onSuccess = (res) => {
+  console.log(res);
+  startTimer();
+}
+
+const onError = (err) => {
+  console.log(err)
+}
+
 // Listen to Start button: 
 $('#start-time').on('click', ()=>{
     let $projectTopic = $('#topic').val();
-    console.log($projectTopic);
+    // if projectTopic field is not empty
     if($projectTopic !== '') {
-        startTimer();
+
+      // create timeStamp object in DB
+      event.preventDefault()
+      let timeObject = {
+        "startTime" : new Date().toLocaleTimeString(),
+        "endTime": new Date().toLocaleTimeString(),
+        "day": new Date().toLocaleDateString(),
+        "projectTopic": $projectTopic
+      }
+      // get projectID from url
+      const projectID = window.location.pathname.split('/')[2];
+
+      $.ajax({
+        xhrFields: {
+            withCredentials: true
+         },
+        url: `/api/v1/startTime/${projectID}`,
+        method: 'POST',
+        data: timeObject,
+        success: onSuccess,
+        error: onError
+    })
+
+    
+
+      
+        // startTimer();
     } else {
         $('#topic').toggleClass("alert");
         $('#topic').attr('value', "Enter your project topic please")
@@ -92,3 +127,9 @@ $('#topic').on('focus', ()=>{
     $('#topic').removeClass("alert");
 
 })
+
+
+// Create a start time record  in DB
+const addStartTime = ()=> {
+
+}
