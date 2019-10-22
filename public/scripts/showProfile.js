@@ -1,5 +1,8 @@
+// get User ID
 const userID = window.location.pathname.split('/')[2]
 console.log(userID)
+
+// SHow list of all user projects
 const getProfile = (id) => {
     console.log({id})
     fetch(`../api/v1/profile/${id}`, {
@@ -15,11 +18,16 @@ const getProfile = (id) => {
         handleSuccess(res.data);
       })
       .catch(err => console.log(err));
-  }
-  const handleSuccess = (data) => {
-      $('body').append(`
-      <h1>${data.email}<h1>
-      `)
-  }
+}
 
-  getProfile(userID)
+
+const handleSuccess = (data) => {
+    data.projects.forEach((project)=>{
+      $('body').append(`
+      <a href="/project/${project._id}">${project.projectName}</a>
+      `)
+    })
+    
+}
+
+getProfile(userID)

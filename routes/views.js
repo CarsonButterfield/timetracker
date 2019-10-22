@@ -21,15 +21,15 @@ router.get('/profile/:userId', (req, res) => {
     res.sendFile('views/profile.html', {
         root: `${__dirname}/../`
     });
-    
 });
 
 
 
 // GET Project Page
 // I'll add Project Id later //
-router.get('/project', (req, res)=> {
+router.get('/project/:projectId', (req, res)=> {
     console.log("building project page");
+    console.log(req.body);
     res.sendFile('views/profile/project_page.html', {
         root: `${__dirname}/../`
     })
