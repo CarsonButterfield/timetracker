@@ -12,6 +12,6 @@ router.post('/login', ctrl.auth.createSession);
 
 // ----------------------------- PROFILE -------------------------- //
 
-router.get('/profiles/:userId', ctrl.auth.showProfile);
+router.get('/profile/:userId', ctrl.auth.showProfile);
 
 module.exports = router;
