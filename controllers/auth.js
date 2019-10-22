@@ -1,15 +1,13 @@
 const bcrypt = require('bcryptjs');
-
+const mongoose = require('mongoose')
 const db = require('../models');
+db.User.find({}, (err,user)=> console.log(user))
 
 // POST Create User
 const createUser = (req, res) => {
-    console.log('beep')
     console.log(req.body)
     db.User.findOne({email:req.body.email},(err,foundUser)=>{
-    console.log('meep')
     if(err){
-        console.loglog('1')
         res.json({
             status:400,
             err,
@@ -23,13 +21,11 @@ const createUser = (req, res) => {
         })
         return
     }
-    console.log('1.5')
     bcrypt.genSalt(10, (err, salt) => {
         if (err) return res.status(500).json({ 
           status: 500,
           error: [{ message: 'Something went wrong. Please try again' }],
         });
-        console.log('2')
         // Bcrypt takes password and salt
         bcrypt.hash(req.body.password, salt, (err, hash) => {
           if (err) return res.status(500).json({
@@ -101,19 +97,15 @@ const createSession = (req, res) => {
 
 // GET Show Profile
 const showProfile = (req, res) => {
-    console.log('beep')
-   let userId = req.params.id
-   db.User.findByID(userId,(err,user)=>{
+  console.log(req)
+   let userId = req.params.userId
+   console.log(userId)
+   db.User.findOne({_id:userId},(err,user)=>{
        console.log('searching')
        if(err){console.log(err)
         return
     }
-    if(!user){
-        res.json({
-            status:400,
-            error:"Something went wrong"
-        })
-    }
+  
     else{
         res.json({
             status:201,
