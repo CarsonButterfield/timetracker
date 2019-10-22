@@ -13,7 +13,7 @@ router.post('/login', ctrl.auth.createSession);
 // ----------------------------- PROFILE -------------------------- //
 
 router.get('/profile/:userId', ctrl.auth.showProfile);
-// router.get('/project/:projectId', ctrl.project.showProject);
+router.get('/project/:projectId', ctrl.project.showProject);
 
 
 //-------------------------------NEW DATA --------------------------//
