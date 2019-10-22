@@ -16,6 +16,12 @@ const newProject = (req,res) => {
     db.User.findOne({_id:userId},(err,user)=> {
         if (err) return console.log(err)
         user.projects.push(newProject)
+        user.save((err,user)=>{
+            if(err) return console.log(err)
+            console.log(user)
+            
+
+        })
         console.log(user)
         res.json({status:201,data:user.projects})
     })
