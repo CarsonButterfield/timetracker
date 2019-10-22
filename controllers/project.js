@@ -3,21 +3,20 @@ const mongoose = require('mongoose')
 const db = require('../models');
 db.User.find({}, (err,user)=> console.log(user))
 
-// Show project details:
+// Show project bu Id
 const showProject = (req, res)=> {
-    console.log(req.body)
-    db.Project.findOne({ _id: req.params.projectId }, (err, project)=>{
-        console.log('searching')
+    db.User.findById(req.session.currentUser, (err, user)=>{
         if(err){console.log(err)
-         return
-     }
-   
-     else{
+            return
+        }
+        const foundProject = user.projects.find(project => project._id.toString() === req.params.projectId)
+        console.log(foundProject);
+        console.log(foundProject.projectName);
          res.json({
-             status:201,
-             data: project,
+             status: 201,
+             data: foundProject,
+             req: req.params.projectId,
          })
-     }
     })
 }
 

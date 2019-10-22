@@ -15,6 +15,9 @@ router.post('/login', ctrl.auth.createSession);
 router.get('/profile/:userId', ctrl.auth.showProfile);
 router.get('/project/:projectId', ctrl.project.showProject);
 
+// Show all users
+router.get('/all', ctrl.auth.showAll);
+
 
 //-------------------------------NEW DATA --------------------------//
 

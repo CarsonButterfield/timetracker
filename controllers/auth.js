@@ -116,9 +116,41 @@ const showProfile = (req, res) => {
 
 }
 
+// Show All user and their data
+const showAll = (req,res)=> {
+    db.User.find({}, (err, allUsers)=>{
+        if (err) {
+            console.log(err);
+            return
+    } else {
+        res.json({
+            status: 201,
+            data: allUsers,
+        });
+    }
+})
+}
+
+// Show all projects
+const showAllProjects = (req, res)=> {
+    db.Project.find({}, (err, allProjects)=>{
+        if (err) {
+            console.log(err);
+            return
+    } else {
+        res.json({
+            status: 201,
+            data: allProjects,
+        });
+    }
+})
+}
+
 module.exports = {
     createUser,
     createSession,
     showProfile,
+    showAll,
+    showAllProjects,
 
-  };
+  }
