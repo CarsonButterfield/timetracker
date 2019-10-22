@@ -18,7 +18,7 @@ router.get('/project/:projectId', ctrl.project.showProject);
 
 //-------------------------------NEW DATA --------------------------//
 
-// router.post('/newProject', ctrl.create.newProject)
+router.post('/newProject', ctrl.create.newProject)
 
 
 module.exports = router;

@@ -35,5 +35,11 @@ router.get('/project/:projectId', (req, res)=> {
     })
 })
 
+router.get('/new-project', (req,res)=>{
+  console.log('new project page')
+  res.sendFile('views/new-project.html',{
+    root: `${__dirname}/../`
+  })
+})
 
 module.exports = router;
