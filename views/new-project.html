@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="/scripts/newProject.js"></script>
+    <script   defer
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+    <script defer src="/scripts/newProject.js"></script>
     <title>New Project</title>
 </head>
 <body>
@@ -12,7 +16,6 @@
     <input type="text" id="projectName" placeholder="Project">
     <input type="text" id="companyName" placeholder="Company">
     <input type="text" id="description" placeholder="Description">
-    <input type="text" id="projectName" placeholder="Project Name">
     <input type="date" id="startDate" placeholder="Start Date">
     <input type="text" id="payRate" placeholder="Hourly Pay">
     <!-- Will update currency to dropdown later -->
@@ -22,7 +25,7 @@
     <input type="text" id="timeLimitNumber" placeholder="Time Limit">
     <!-- Will update to dropdown later-->
     <input type="text" id="timeLimitUnit" placeholder="Time ">
-    
+    <button type="submit">Submit</button>
 
 
 
@@ -32,17 +35,3 @@
 
     </form>
 </body>
-</html>
-<!--const Project = new Schema
-    projectName:String,
-    companyName:String,
-    description:String,
-    startDate: Date,
-    payRate: Number,
-    currency:String,
-    extraHoursTime:Number,
-    extraHoursPayRate:Number,
-    timeLimitNumber:Number,
-    timeLimitUnit:String,
-    workingTime: [Object]
- -->
