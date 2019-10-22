@@ -38,8 +38,8 @@ body {
     font-size: 15px;
 }
 .alert {
-    border: 2px red solid;
-    color: red;
+    border: 2px #c24848 solid;
+    color: #c24848;
 }
 
 /* Clock additions */
