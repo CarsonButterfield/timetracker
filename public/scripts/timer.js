@@ -89,6 +89,6 @@ $('#start-time').on('click', ()=>{
 // Listen to input focus to togle alert class
 $('#topic').on('focus', ()=>{
     $('#topic').attr('value', "")
-    $('#topic').toggleClass("alert");
+    $('#topic').removeClass("alert");
 
 })
