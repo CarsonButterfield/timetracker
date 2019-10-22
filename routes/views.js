@@ -21,7 +21,6 @@ router.get('/profile/:userId', (req, res) => {
     res.sendFile('views/profile.html', {
         root: `${__dirname}/../`
     });
-    
 });
 
 
