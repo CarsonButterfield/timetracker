@@ -1,7 +1,7 @@
 [{
     "userName": "Bob Dylan",
-    "email": "bob_dylam@gmail.com",
-    "password": "sresfw4563fw4dse",
+    "email": "bob_dylan@gmail.com",
+    "password": "$2a$10$chi4HHha91S.0dKwWLmtp.p55LipqiMQ4gsZiwP07shGFbwOeLqQa",
     "projects": [
         {"projectName": "Time tracking app",
         "companyName": "General Assempbly",

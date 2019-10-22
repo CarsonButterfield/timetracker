@@ -1,4 +1,8 @@
 module.exports = {
     auth: require('./auth'),
-    create:require('./create')
+
+    create:require('./create'),
+    
+    project: require('./project'),
+
   }
