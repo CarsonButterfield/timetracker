@@ -86,7 +86,7 @@ app.post('/signup',(req,res) => {
     
 })
 
-app.post('/login',(req,res) => {
+app.post('/api/v1/login',(req,res) => {
     {
         console.log('Request session object --> ', req.session);
         db.User.findOne({ email: req.body.email }, (err, foundUser) => {
@@ -124,15 +124,36 @@ app.post('/login',(req,res) => {
         });
       }
 })
-app.get('/profile',(req,res)=>{
+app.get('/profile/:id',(req,res)=>{
     res.sendFile('views/profile.html', {
         root: `${__dirname}/`
       });
 })
+app.get('/login',(req,res)=>{
+    res.sendFile('views/login.html', {
+        root: `${__dirname}/`
+      });
+})
 app.get('/api/v1/profile/:id',(req,res) => {
-   console.log('server hit')
-   res.status(200).json({
-       meep:'beep'
+    console.log('beep')
+   let userId = req.params.id
+   db.User.findByID(userId,(err,user)=>{
+       console.log('searching')
+       if(err){console.log(err)
+        return
+    }
+    if(!user){
+        res.json({
+            status:400,
+            error:"Something went wrong"
+        })
+    }
+    else{
+        res.json({
+            status:201,
+            data:user,
+        })
+    }
    })
 
 })
