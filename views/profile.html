@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <script defer
 			  src="https://code.jquery.com/jquery-3.4.1.min.js"
 			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
-    <script defer src="/scripts/app.js"></script>
+              crossorigin="anonymous"></script>
+    <script defer src="/scripts/materialize"></script>
     <script defer src="/scripts/showProfile.js"></script>
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/materialize.css">
+    <link rel="stylesheet" href="/styles/showprofile.css">
     <title>Profile</title>
 </head>
 <body>
-   
+   <h1></h1>
+   <a href="/new-project" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+   <ul id="projects" class="collection with-header">
+       <li class="collection-header"id="labels"><div class="row-item"><h6>Project</h6></div><div class="row-item"><h6>Company</h6></div><div class="row-item"><h6>Hours Worked</h6></div><div class="row-item"><h6>Money Earned</h6></div></li>
+   </ul>
 </body>
 </html>
