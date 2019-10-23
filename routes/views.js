@@ -26,6 +26,13 @@ router.get('/profile/:userId', (req, res) => {
         root: `${__dirname}/../`
     });
 });
+router.get('/profile', (req, res) => {
+  if (!req.session.currentUser) {
+      return res.redirect('/');
+    }
+
+  res.redirect(`/profile/${req.session.currentUser}`);
+});
 
 
 
