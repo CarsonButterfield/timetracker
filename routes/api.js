@@ -23,5 +23,10 @@ router.get('/all', ctrl.auth.showAll);
 
 router.post('/newProject', ctrl.create.newProject)
 
+// Set start time
+router.post('/startTime/:projectId', ctrl.create.newTimeStamp);
+
+// set end time
+router.put('/stopTime/:projectId/:workingTimeId', ctrl.create.newStopTime);
 
 module.exports = router;

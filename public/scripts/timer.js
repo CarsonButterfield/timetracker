@@ -1,3 +1,5 @@
+var timeStampId;
+
 var digitSegments = [
     [1,2,3,4,5,6],
     [2,3],
@@ -73,12 +75,52 @@ var setNumber = function(digit, number, on) {
 
 
 
+const onSuccess = (res) => {
+  console.log(res);
+  timeStampId = res.data._id;
+  startTimer();
+}
+
+const onError = (err) => {
+  console.log(err)
+}
+
+
+const onSuccess2 = (res) => {
+  console.log(res);
+  console.log("Stop Timer");
+}
+
+
 // Listen to Start button: 
 $('#start-time').on('click', ()=>{
     let $projectTopic = $('#topic').val();
-    console.log($projectTopic);
+    // if projectTopic field is not empty
     if($projectTopic !== '') {
-        startTimer();
+
+      // create timeStamp object in DB
+      event.preventDefault()
+      let timeObject = {
+        "startTime" : new Date().toLocaleString(),
+        "endTime": new Date().toLocaleString(),
+        "day": new Date().toLocaleDateString(),
+        "projectTopic": $projectTopic
+      }
+
+      // get projectID from url
+      const projectID = window.location.pathname.split('/')[2];
+
+      $.ajax({
+        xhrFields: {
+            withCredentials: true
+         },
+        url: `/api/v1/startTime/${projectID}`,
+        method: 'POST',
+        data: timeObject,
+        success: onSuccess,
+        error: onError
+    })
+      
     } else {
         $('#topic').toggleClass("alert");
         $('#topic').attr('value', "Enter your project topic please")
@@ -86,9 +128,29 @@ $('#start-time').on('click', ()=>{
 });
 
 
+// Listen to STOP button
+$('#stop-time').on('click', ()=>{
+  $.ajax({
+    xhrFields: {
+        withCredentials: true
+     },
+    url: `/api/v1/stopTime/${projectID}/${timeStampId}/`,
+    method: 'PUT',
+    success: onSuccess2,
+    error: onError
+})
+}
+)
+
 // Listen to input focus to togle alert class
 $('#topic').on('focus', ()=>{
     $('#topic').attr('value', "")
     $('#topic').removeClass("alert");
 
 })
+
+
+// Create a start time record  in DB
+const addStartTime = ()=> {
+
+}
