@@ -168,3 +168,26 @@ body {
     height:10px;
   }
 /* CLOCK SECTION END */
+
+
+
+/* TABLE START */
+
+#history-table {
+  width: 100%;
+  border-spacing: 0;
+  margin: 20px 0;
+  
+}
+tr td{
+  border-bottom: 1px solid grey;
+  /* overflow-wrap: break-word; */
+  word-break: break-word;
+}
+
+td:nth-child(2) {
+  width: 50%;
+
+}
+
+tr:hover {background-color: #f5f5f5;}

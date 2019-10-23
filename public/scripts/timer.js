@@ -105,6 +105,7 @@ $('#start-time').on('click', ()=>{
 
       // create timeStamp object in DB
       event.preventDefault()
+ 
       let timeObject = {
         "startTime" : new Date().toLocaleString(),
         "endTime": new Date().toLocaleString(),
