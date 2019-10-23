@@ -1,3 +1,5 @@
+var timeStampId;
+
 var digitSegments = [
     [1,2,3,4,5,6],
     [2,3],
@@ -75,12 +77,20 @@ var setNumber = function(digit, number, on) {
 
 const onSuccess = (res) => {
   console.log(res);
+  timeStampId = res.data._id;
   startTimer();
 }
 
 const onError = (err) => {
   console.log(err)
 }
+
+
+const onSuccess2 = (res) => {
+  console.log(res);
+  console.log("Stop Timer");
+}
+
 
 // Listen to Start button: 
 $('#start-time').on('click', ()=>{
@@ -91,11 +101,12 @@ $('#start-time').on('click', ()=>{
       // create timeStamp object in DB
       event.preventDefault()
       let timeObject = {
-        "startTime" : new Date().toLocaleTimeString(),
-        "endTime": new Date().toLocaleTimeString(),
+        "startTime" : new Date().toLocaleString(),
+        "endTime": new Date().toLocaleString(),
         "day": new Date().toLocaleDateString(),
         "projectTopic": $projectTopic
       }
+
       // get projectID from url
       const projectID = window.location.pathname.split('/')[2];
 
@@ -109,17 +120,27 @@ $('#start-time').on('click', ()=>{
         success: onSuccess,
         error: onError
     })
-
-    
-
       
-        // startTimer();
     } else {
         $('#topic').toggleClass("alert");
         $('#topic').attr('value', "Enter your project topic please")
     }
 });
 
+
+// Listen to STOP button
+$('#stop-time').on('click', ()=>{
+  $.ajax({
+    xhrFields: {
+        withCredentials: true
+     },
+    url: `/api/v1/stopTime/${projectID}/${timeStampId}/`,
+    method: 'PUT',
+    success: onSuccess2,
+    error: onError
+})
+}
+)
 
 // Listen to input focus to togle alert class
 $('#topic').on('focus', ()=>{
