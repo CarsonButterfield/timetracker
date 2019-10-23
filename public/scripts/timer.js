@@ -1,4 +1,6 @@
 var timeStampId;
+var stop = false;
+var totalMinutes = 1;
 
 var digitSegments = [
     [1,2,3,4,5,6],
@@ -15,34 +17,35 @@ var digitSegments = [
 
 
 function startTimer() {
-    console.log("Taimer is started");
+  console.log("Timer has started");
   var _hours = document.querySelectorAll('.hours');
-  var _minutes = document.querySelectorAll('.minutes');
-  var time = new Date();
-    time.setHours(0,0,0,0);
-    var hours = time.getHours(), minutes = time.getMinutes();  
-    var totalMinutes = 1;
-    setNumber(_hours[0], 0, 1);
-    setNumber(_hours[1], 0, 1);
+  var _minutes = document.querySelectorAll('.minutes');  
+  setNumber(_hours[0], 0, 1);
+  setNumber(_hours[1], 0, 1);
+  setNumber(_minutes[0], 0, 1);
+  setNumber(_minutes[1], 0, 1);
 
-    setNumber(_minutes[0], 0, 1);
-    setNumber(_minutes[1], 0, 1);
+  function updateTime() {
+    const everyMinute = setInterval(()=>{
+      if (stop === false){
+        console.log("updating timer");
+        let hourFirstDidgit = (totalMinutes - (totalMinutes%60))/60%10;
+        let hourSecondDidgit = ((totalMinutes - (totalMinutes%60))/60 - hourFirstDidgit)/10;
+        let minutesFirstDighit = (totalMinutes%60)%10;
+        let minutesSecondDighit = ((totalMinutes%60) - minutesFirstDighit)/10;
+        setNumber(_hours[0], hourFirstDidgit, 1);
+        setNumber(_hours[1], hourSecondDidgit, 1);
+        setNumber(_minutes[0], minutesSecondDighit, 1);
+        setNumber(_minutes[1], minutesFirstDighit, 1); 
+        totalMinutes ++;
+      } else {
+        console.log("clearing interval");
+        clearInterval(everyMinute);
+      }
+    }, 6000)
+  }
+  updateTime();
 
-
-  setInterval(function() {
-      console.log("SetInterval");
-
-    let hourFirstDidgit = (totalMinutes - (totalMinutes%60))/60%10;
-    let hourSecondDidgit = ((totalMinutes - (totalMinutes%60))/60 - hourFirstDidgit)/10;
-    let minutesFirstDighit = (totalMinutes%60)%10;
-    let minutesSecondDighit = ((totalMinutes%60) - minutesFirstDighit)/10;
-    setNumber(_hours[0], hourFirstDidgit, 1);
-    setNumber(_hours[1], hourSecondDidgit, 1);
-    setNumber(_minutes[0], minutesSecondDighit, 1);
-    setNumber(_minutes[1], minutesFirstDighit, 1); 
-    totalMinutes ++;
-    
-  }, 6000);
 };
 
 var setNumber = function(digit, number, on) {
@@ -74,7 +77,7 @@ var setNumber = function(digit, number, on) {
 }
 
 
-
+// for StartTime
 const onSuccess = (res) => {
   console.log(res);
   timeStampId = res.data._id;
@@ -85,7 +88,7 @@ const onError = (err) => {
   console.log(err)
 }
 
-
+// for StopTime
 const onSuccess2 = (res) => {
   console.log(res);
   console.log("Stop Timer");
@@ -94,6 +97,8 @@ const onSuccess2 = (res) => {
 
 // Listen to Start button: 
 $('#start-time').on('click', ()=>{
+    stop = false;
+    totalMinutes = 1;
     let $projectTopic = $('#topic').val();
     // if projectTopic field is not empty
     if($projectTopic !== '') {
@@ -130,6 +135,9 @@ $('#start-time').on('click', ()=>{
 
 // Listen to STOP button
 $('#stop-time').on('click', ()=>{
+  stop = true;
+  $('.segment').removeClass('on');
+  $('.digit').removeAttr('data-value');
   $.ajax({
     xhrFields: {
         withCredentials: true
@@ -150,7 +158,3 @@ $('#topic').on('focus', ()=>{
 })
 
 
-// Create a start time record  in DB
-const addStartTime = ()=> {
-
-}
