@@ -1,6 +1,5 @@
 // get User ID
 const userID = window.location.pathname.split('/')[2]
-console.log(userID)
 
 // SHow list of all user projects
 const getProfile = (id) => {
@@ -20,14 +19,30 @@ const getProfile = (id) => {
       .catch(err => console.log(err));
 }
 
-
+const convertToHours = (miliseconds) => {
+  return ((miliseconds/1000) / 60)/60
+}
 const handleSuccess = (data) => {
+    $('h1').text(`Welcome, ${data.userName}`)
+
     data.projects.forEach((project)=>{
-      $('body').append(`
-      <a href="/project/${project._id}">${project.projectName}</a>
+      let totalTime = 0
+      project.workingTime.forEach((timestamp)=>{
+        console.log(timestamp)
+        let startTime = new Date(timestamp.startTime).getTime()
+        let endTime = new Date(timestamp.endTime).getTime()
+        totalTime += endTime - startTime
+
+      })
+    
+    totalTime = convertToHours(totalTime)
+      $('#projects').append(`
+      <li class="collection-item"><div class="row-item">${project.projectName}</div><div class="row-item">${project.companyName}</div><div class="row-item">${totalTime.toFixed(2) } </div><div class="row-item"> ${project.payRate * totalTime} ${project.currency}</div><a href="/project/${project._id}" class="secondary-content"><i class="material-icons">send</i></a></li>
       `)
+      
     })
     
 }
 
 getProfile(userID)
+//<a href="/project/${project._id}">
