@@ -7,7 +7,8 @@
     <script defer
 			  src="https://code.jquery.com/jquery-3.4.1.min.js"
 			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
+              crossorigin="anonymous"></script>
+              <script defer src="/scripts/materialize.js"></script>
     <script defer src="/scripts/app.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script defer src="/scripts/materialize.js"></script>
@@ -17,33 +18,47 @@
     <title>Login</title>
 </head>
 <body>
+    <div id="forms">
     <div id="togglebuttons"><ul class="tabs">
-        <li class="tab s3"><a href="#login">Sign Up</a></li>
-        <li class ="tab s3"><a href="#">Log In</a></li>
+        <li class="tab s3"><a href="#signup">Sign Up</a></li>
+        <li class ="tab s3"><a href="#login">Log In</a></li>
     </ul></div>
     <form id="login">
-        <input type="text" id="email" placeholder="email">
-        <input type="password" id="password" placeholder="password">
-        <button type="submit">Login</button>
+    <div class="row">
+            <div class="input-field col s12">
+                <input id="email" type="text" class="validate">
+                <label for="email">Email</label>
+            </div></div><div class="row">
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div></div>
+            <a id="loginbutton" class="waves-effect waves-light btn">Login</a>
     </form>
     <form id="signup">
-            <input type="text" id="email2" placeholder="email2">
-            <input type="password" id="password2" placeholder="password2">
-            <button type="submit">Login</button>
+            <div class="row">
+                    <div class="input-field col s12">
+                            <input id="name" type="text" class="validate">
+                            <label for="name">Name</label>
+                    </div></div>
+            <div class="row">
+            <div class="input-field col s12">
+                <input id="createEmail" type="text" class="validate">
+                <label for="createEmail">Email</label>
+            </div></div>
+            <div class="row">
+            <div class="input-field col s12">
+                <input id="createPassword" type="password" class="validate">
+                <label for="createPassword">Password</label>
+            </div></div>
+            <div class="row">
+            <div class="input-field col s12">
+                    <input id="confirmPassword" type="password" class="validate">
+                    <label for="confirmPassword">Confirm Password</label>
+            </div></div>
+            
+            <a id="createbutton" class="waves-effect waves-light btn">Create</a>
         </form>
-        <div class="row">
-                <div class="col s12">
-                  <ul class="tabs">
-                    <li class="tab col s3"><a href="#test1">Test 1</a></li>
-                    <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-                    <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
-                    <li class="tab col s3"><a href="#test4">Test 4</a></li>
-                  </ul>
-                </div>
-                <div id="test1" class="col s12">Test 1</div>
-                <div id="test2" class="col s12">Test 2</div>
-                <div id="test3" class="col s12">Test 3</div>
-                <div id="test4" class="col s12">Test 4</div>
-              </div>
+    </div>
 </body>
 </html>
