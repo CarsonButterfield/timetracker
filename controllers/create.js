@@ -13,7 +13,7 @@ const newProject = (req,res) => {
     }
     let newProject = req.body
     let userId = req.session.currentUser
-    db.User.findOne({_id:userId},(err,user)=> {
+    db.User.findOne({_id:userId},(err,user)=> { 
         if (err) return console.log(err)
         user.projects.push(newProject)
         user.save((err,user)=>{

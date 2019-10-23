@@ -121,7 +121,13 @@ const buildTable = ()=>{
         let templ = `
             <tr>
                 <td>${date}</td>
-                <td>${day.topics.join(', ')}</td>
+                <td>${day.topics.join(', ')}
+                    <div class="buttons">
+                        <a id="edit-button" class="waves-effect waves-light btn edit-mode-button invisible">edit</a>
+                        <a id="delete-button" class="waves-effect waves-light btn edit-mode-button invisible">delete</a>
+                        <a id="cancel-button" class="waves-effect waves-light btn edit-mode-button invisible">cancel</a>
+                    </div>
+                </td>
                 <td>${hours}:${minutes}</td>
                 <td>${day.money}</td>
             </tr>
@@ -130,5 +136,34 @@ const buildTable = ()=>{
     })
 }
 
+const toggleEditMode = (event)=>{
+    console.log("toggleEditMode()")
+    console.log(event.target);
+    $(event.target.parentNode).toggleClass("half-invisible");
+    $(event.target).find('#edit-button').toggleClass('invisible');
+    $(event.target).find('#delete-button').toggleClass('invisible');
+    $(event.target).find('#cancel-button').toggleClass('invisible');
 
+
+}
+
+const removeInvisible = ()=>{
+    console.log("removeInvisible()")
+    console.log(event.target);
+
+    $("tr").removeClass("half-invisible");
+    $(event.target.parentNode).find('#edit-button').toggleClass('invisible');
+    $(event.target.parentNode).find('#delete-button').toggleClass('invisible');
+    $(event.target.parentNode).find('#cancel-button').toggleClass('invisible');
+
+}
+//Listen to click
+$('tbody').on('click', 'tr', toggleEditMode);
+$('tbody').on('focusout', 'tr', function () {
+    $(this).removeClass('half-invisible');
+  });
+
+// Listen to cancel button
+$('tbody').on('click', '#cancel-button', removeInvisible);
+// $('#cancel-button').click(removeInvisible);
 
