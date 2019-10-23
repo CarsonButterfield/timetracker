@@ -12,13 +12,11 @@
     <!-- Materialize fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Matereialize CSS -->
-    <link rel="stylesheet" href="/styles/css/admin-materialize.min.css">
+    <link rel="stylesheet" href="/styles/materialize.css">
     <!-- Materialize JS -->
-    <script defer src="/scripts/js/Chart.js"></script>
-    <script defer src="/scripts/js/materialize.js"></script>
-    <script defer src="/scripts/js/masonry.pkgd.min.js"></script>
+    <script defer src="/scripts/materialize.js"></script>
 
-    <script defer src="/scripts/js/admin.js"></script>
+    <!-- <script defer src="/scripts/js/admin.js"></script> -->
     <!-- Main CSS -->
     <link rel="stylesheet" href="/styles/project_page.css">
 
@@ -97,7 +95,7 @@
         
     </section>
     
-    <table class="highlight">
+    <table class="striped" id="history-table">
             <thead>
               <tr>
                   <th>Date</th>
@@ -105,25 +103,21 @@
                   <th>Hours</th>
                   <th>$</th>
               </tr>
+              <tr>
+                    <td>Today</td>
+                    <td>TEST</td>
+                    <td>555</td>
+                    <td>5566</td>
+                    <!-- <td>
+                        <div>
+                            <button type="button" id="edit-button">edit<button>
+                            <button type="button" id="delete-button">delete<button>
+
+                        </div>
+                    </td> -->
+                </tr>
             </thead>
-    
-            <tbody>
-              <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
-              </tr>
-              <tr>
-                <td>Alan</td>
-                <td>Jellybean</td>
-                <td>$3.76</td>
-              </tr>
-              <tr>
-                <td>Jonathan</td>
-                <td>Lollipop</td>
-                <td>$7.00</td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>   
     
 
