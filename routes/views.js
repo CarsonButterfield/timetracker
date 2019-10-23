@@ -4,6 +4,10 @@ const ctrl = require('../controllers');
 
 // get home
 router.get('/', (req, res) => {
+  if(req.session.currentUser){
+    res.redirect(`/profile/${req.session.currentUser}`)
+    return
+  }
   res.sendFile('views/login.html', {
     root: `${__dirname}/../`
   });
@@ -15,7 +19,7 @@ router.get('/', (req, res) => {
 // GET User Profile
 router.get('/profile/:userId', (req, res) => {
     if (!req.session.currentUser) {
-        return res.redirect('/login');
+        return res.redirect('/');
       }
 
     res.sendFile('views/profile.html', {
@@ -36,6 +40,9 @@ router.get('/project/:projectId', (req, res)=> {
 })
 
 router.get('/new-project', (req,res)=>{
+  if(!req.session.currentUser){
+    return res.redirect('/')
+  }
   console.log('new project page')
   res.sendFile('views/new-project.html',{
     root: `${__dirname}/../`
