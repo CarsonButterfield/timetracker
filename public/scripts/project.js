@@ -2,6 +2,7 @@
 var project;
 var historyData = [];
 var selectedDay;
+var selectedTopic;
 
 // TIMER START //
 
@@ -288,7 +289,7 @@ const buildTable = ()=>{
                 <td>${date}</td>
                 <td>${day.topics.join(', ')}
                     <div class="buttons">
-                    <a id="edit-button" class="waves-effect waves-light btn edit-mode-button invisible">edit</a>
+                    <a id="edit-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-edit">edit</a>
                     <a id="delete-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-delete">delete</a>
                     <a id="cancel-button" class="waves-effect waves-light btn edit-mode-button invisible">cancel</a>
                     </div>
@@ -312,6 +313,9 @@ const toggleEditMode = (event)=>{
         selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
         selectedDay = new Date(selectedDay).toISOString();
         console.log("selectedDay: " + selectedDay);
+        selectedTopic = $(event.target.parentNode.parentNode.parentNode).children().eq(1).children().eq(0).text();
+        console.log("selectedTopic: " + selectedTopic);
+
     }
     // selectedDay = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
     // selectedDay = new Date(selectedDay).toISOString();
@@ -365,6 +369,13 @@ const deleteDayRecord = ()=> {
 }
 
 
+const fillEditModal = ()=>{
+    removeInvisible();
+    $('#topics').attr('value', selectedTopic);
+    console.log("topic was filled");
+
+}
+
 //Listen to click
 $('tbody').on('click', 'tr', toggleEditMode);
 // $('tbody').on('focusout', 'tr', function () {
@@ -381,6 +392,9 @@ $('tbody').on('click', '#cancel-button', removeInvisible);
     $('.modal').modal();
   });
 
+$('.datepicker').datepicker();
+$('select').formSelect();
+
 
 // Listen to DELETE button:
 $('tbody').on('click', '#delete-button', removeInvisible);
@@ -388,3 +402,21 @@ $('tbody').on('click', '#delete-button', removeInvisible);
 
 // Listen to delete in Modal window:
 $('#delete-confirmation').on('click', deleteDayRecord);
+
+
+// Listen to Edit button:
+$('tbody').on('click', '#edit-button', fillEditModal);
+
+
+
+
+
+// Update record
+
+const updateRecord = ()=> {
+    event.preventDefault();
+    console.log('Form was submitted');
+}
+
+// listen to submit edited record form
+$('#edit-submit').on('click', updateRecord);
