@@ -1,10 +1,14 @@
 Main Page
 -User should see simple logo and a signup/signin box
 -the signout box should be able to switch to a signin button when the user clicks a button
+=======
+-User should see simple logo and a signup box
+-the signout box should be able to switch to a signin button when the user clicks a button
+
+Signup Page 
 -user should be presented with the form to create there account 
 -the user should be informed if any of the data they enterred is incorrect
 -after filling in the form the user should be automatically taken to there profile/project page
-
 User Projects Page 
 -User should see there current projects and time totals
 -projects should be clickable to link them to a more detailed project page
@@ -22,3 +26,9 @@ New Project Page
 -User should have a form that allows them to input all the data needed for a new project
 -User should be informed if they input any invalid data 
 -User should be taken to the Project page of the project they created when they submit 
+=======
+Project Page 
+-User should see there current projects and time totals
+-projects should be clickable to link them to a more detailed project page
+-user should have be able to start and stop and timer that when stops automatically adds to the project they selected
+-user should have a "subject" box to apply to the time they are curently tracking
