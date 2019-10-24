@@ -1,6 +1,7 @@
 // global variable
 var project;
 var historyData = [];
+var selectedDay;
 
 // TIMER START //
 
@@ -303,6 +304,12 @@ const buildTable = ()=>{
 const toggleEditMode = (event)=>{
     console.log("toggleEditMode()")
     console.log(event.target);
+    selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
+    console.log("selectedDay: " + selectedDay);
+    selectedDayUTC = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
+    console.log("selectedDayUTC: " + selectedDayUTC);
+
+
     $(event.target.parentNode).toggleClass("half-invisible");
     $(event.target).find('#edit-button').toggleClass('invisible');
     $(event.target).find('#delete-button').toggleClass('invisible');
@@ -321,11 +328,39 @@ const removeInvisible = ()=>{
     $(event.target.parentNode).find('#cancel-button').toggleClass('invisible');
 
 }
+
+// success function for day deleting
+const handleSuccess3 = (data) => {
+    console.log("day was deleted");
+    location.reload(false);
+    console.log("page was reloaded");
+}
+
+
+// remove the record for the day:
+const deleteDayRecord = ()=> {
+    console.log(`api/v1/remove/${projectID}/${selectedDay} is running`)
+    fetch(`../api/v1/remove/${projectID}/${selectedDay}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(dataStream => dataStream.json())
+      .then(res => {
+        console.log({res});
+        handleSuccess3(res.data);
+      })
+      .catch(err => console.log(err));
+}
+
+
 //Listen to click
 $('tbody').on('click', 'tr', toggleEditMode);
-$('tbody').on('focusout', 'tr', function () {
-    $(this).removeClass('half-invisible');
-  });
+// $('tbody').on('focusout', 'tr', function () {
+//     $(this).removeClass('half-invisible');
+//   });
 
 // Listen to cancel button
 $('tbody').on('click', '#cancel-button', removeInvisible);
@@ -340,3 +375,7 @@ $('tbody').on('click', '#cancel-button', removeInvisible);
 
 // Listen to DELETE button:
 $('tbody').on('click', '#delete-button', removeInvisible);
+
+
+// Listen to delete in Modal window:
+$('#delete-confirmation').on('click', deleteDayRecord);

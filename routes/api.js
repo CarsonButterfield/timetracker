@@ -33,6 +33,6 @@ router.put('/stopTime/:projectId/:workingTimeId', ctrl.create.newStopTime);
 //------------------------------- DELETE DATA --------------------------//
 
 // remove all record for particular day
-// router.delete('/remove/:projectId/:day', ctrl.remove.dayRecords);
+router.put('/remove/:projectId/:day', ctrl.remove.deleteDayRecords);
 
 module.exports = router;

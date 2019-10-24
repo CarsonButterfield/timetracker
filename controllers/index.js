@@ -5,4 +5,7 @@ module.exports = {
     
     project: require('./project'),
 
+
+    remove: require('./remove'),
+
   }
