@@ -1,6 +1,7 @@
 console.log('beep')
 $('#new-project').on('submit',(event)=>{
-   
+   let required = ['projectName','companyName','description','startDate','payRate','currency']
+   let valid = true;
     event.preventDefault()
     let projectObject = {
         projectName:$('#projectName').val(),
@@ -15,7 +16,17 @@ $('#new-project').on('submit',(event)=>{
         timeLimitUnit:$('#timeLimitUnit').val(),
        
     }
-    console.log(projectObject)
+required.forEach((requirment) => {
+    if(projectObject[requirment] === ''){
+        let target = `#${requirment}`
+        console.log(target)
+        $(target).addClass('invalid')
+        valid = false;
+    }
+})
+    if(!valid){
+        return
+    }
     $.ajax({
         xhrFields: {
             withCredentials: true
