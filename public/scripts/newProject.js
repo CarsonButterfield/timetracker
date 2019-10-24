@@ -29,7 +29,7 @@ $('#new-project').on('submit',(event)=>{
 })
 
 const onSuccess = (res) => {
-    console.log(res)
+    window.location.href = "/profile"
 }
 const onError = (err) => {
     console.log(err)
