@@ -1,6 +1,6 @@
 // get User ID
 const userID = window.location.pathname.split('/')[2]
-
+$('.modal').modal();
 // SHow list of all user projects
 const getProfile = (id) => {
     console.log({id})
@@ -37,7 +37,15 @@ const handleSuccess = (data) => {
     
     totalTime = convertToHours(totalTime)
       $('#projects').append(`
-      <li data=${project._id} class="collection-item"><div class="row-item">${project.projectName}</div><div class="row-item">${project.companyName}</div><div class="row-item">${totalTime.toFixed(2) } </div><div class="row-item"> ${project.payRate * totalTime} ${project.currency}</div><div class="deleteProject"><i class="material-icons">delete</i></div><a href="/project/${project._id}" class="secondary-content"><i class="material-icons">send</i></a></li>
+      <li data=${project._id} class="collection-item">
+      
+      <div class="row-item project-name">${project.projectName}</div>
+      <div class="row-item company-name">${project.companyName}</div>
+      <div class="row-item total-time">${totalTime.toFixed(2) } </div>
+      <div class="row-item total-pay"> ${(project.payRate * totalTime).toFixed(2)} ${project.currency}
+      </div>
+     
+      <a href="#modal1" class="material-icons modal-trigger delete-window">delete</a></li>
       `)
       
     })
@@ -52,14 +60,46 @@ const delSuccess = (res) => {
 const delErr = (err) =>{
   console.log({err})
 }
-$('#projects').on('click', '.deleteProject', function (event) {
-  removeProject($(this).parent())
+$('#confirm-delete').on('click', function (event) {
+  removeProject($('#modal1').attr('data'))
 })
-const removeProject = ($project) => {
-  console.log($project)
+$('#projects').on('click', '.delete-window', function (event) {
+  
+  $('#modal1').attr('data',`${$(this).parent().attr('data')}`)
+  $('#modal1  h4').text('Confirm Deletion')
+  $('#modal1 span').html(`I want to delete project <b>${$(this).siblings('.project-name').text()}</b> for company <b>${$(this).siblings('.company-name').text()}</b>`)
+  $('#modal1  p').html(`This will permanently remove <b> ${$(this).siblings('.project-name').text()}</b> from your projects`)
+  
+})
+$('#confirm-checkbox').on('change',function(event){
+  console.log(this.checked)
+  if(this.checked){
+    $('#confirm-delete').removeClass('disabled')
+  }
+  else{
+    $('#confirm-delete').addClass('disabled')
+  }
+})
+$('#projects').on('click', '.collection-item', function (event) {
+  // if(event.target.hasClass('material-icons')){
+  //   console.log('stopped')
+  //   return
+  // }
+ if( event.target.classList.contains('material-icons')){
+   return
+ }
+ window.location.href = `/project/${$(this).attr('data')}`
+})
+const removeProject = (id) => {
+ $('#projects').children().each(function (index) {
+   if($(this).attr('data')=== id){
+     $(this).remove()
+   }
+ })
+  
   $.ajax({
     method:'DELETE',
-    url:`../api/v1/project/${$project.attr('data')}`,
+    url:`../api/v1/project/${id}`,
    success:delSuccess,
    error:delErr,
   })

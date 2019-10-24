@@ -6,4 +6,15 @@ flex-direction: row;
 .row-item{
     width:25vw;
     text-align: center;
+    cursor: pointer;
+}
+main{
+    width:70vw;
+    margin: 0 auto;
+}
+.delete-window:hover{
+    color:red;
+}
+.deleteProject{
+    cursor: pointer;
 }

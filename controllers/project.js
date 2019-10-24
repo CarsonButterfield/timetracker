@@ -28,8 +28,28 @@ const deleteProject = (req,res) => {
         return
     }
     console.log(req.params.projectId)
-    db.User.update({_id:req.params.id},{$pull:{projects:{$in:{_id:{$eq:req.params.projectId}}}}})
-    res.json({status:200,data:"yeet"})
+    
+  db.User.findOne({_id:req.session.currentUser},(err,user)=> {
+      if(err){
+        console.log({err})
+        res.json({status:400,err})
+        return
+            }
+    let filteredLogs = user.projects.filter((project) =>{
+        
+        return project._id != req.params.projectId
+    })
+
+    user.projects = filteredLogs
+    user.save((err,user)=> {
+        if(err){
+            res.json({status:400,data:"Save Error"})
+            return
+        }
+        res.json({status:201,data:"updated user"})
+    })
+  })
+    
 }
 
 module.exports = {

@@ -10,26 +10,48 @@
 			  src="https://code.jquery.com/jquery-3.4.1.min.js"
 			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
               crossorigin="anonymous"></script>
-    <script defer src="/scripts/materialize"></script>
+    <script defer src="/scripts/materialize.js"></script>
     <script defer src="/scripts/showProfile.js"></script>
     <link rel="stylesheet" href="/styles/materialize.css">
     <link rel="stylesheet" href="/styles/showprofile.css">
     <title>Profile</title>
 </head>
 <body>
-         <nav>
+<header>
+        <nav>
                 <div class="nav-wrapper">
                   <a href="#" class="brand-logo">Trakr</a>
                   <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="active"><a href="/profile">Profile</a></li>
                     <li><a href="/new-project">New Project</a></li>
+                    <li><a href="/api/v1/logout">Logout</a></li>
                   </ul>
                 </div>
               </nav> 
+</header>
+<main>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+        
+            <label>
+              <input id="confirm-checkbox"type="checkbox" class="filled-in" />
+              <span>Filled in</span>
+            </label>
+        
+      </div>
+      <div class="modal-footer">
+        <a href="#!" id="confirm-delete" class="modal-close  waves-effect waves-light btn disabled red darken-4"><i class="material-icons left">delete_forever</i>Confirm</a>
+      </div>
+    </div>
    <h1></h1>
    <a href="/new-project" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
    <ul id="projects" class="collection with-header">
        <li class="collection-header"id="labels"><div class="row-item"><h6>Project</h6></div><div class="row-item"><h6>Company</h6></div><div class="row-item"><h6>Hours Worked</h6></div><div class="row-item"><h6>Money Earned</h6></div></li>
    </ul>
+</main>
 </body>
 </html>
