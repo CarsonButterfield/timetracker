@@ -37,7 +37,15 @@ const handleSuccess = (data) => {
     
     totalTime = convertToHours(totalTime)
       $('#projects').append(`
-      <li data=${project._id} class="collection-item"><div class="row-item">${project.projectName}</div><div class="row-item">${project.companyName}</div><div class="row-item">${totalTime.toFixed(2) } </div><div class="row-item"> ${(project.payRate * totalTime).toFixed(2)} ${project.currency}</div><div class="deleteProject"><i class="material-icons">delete</i></div></li>
+      <li data=${project._id} class="collection-item">
+      
+      <div class="row-item">${project.projectName}</div>
+      <div class="row-item">${project.companyName}</div>
+      <div class="row-item">${totalTime.toFixed(2) } </div>
+      <div class="row-item"> ${(project.payRate * totalTime).toFixed(2)} ${project.currency}
+      </div>
+     
+      <div class="deleteProject"><i class="material-icons">delete</i></div></li>
       `)
       
     })
@@ -54,6 +62,20 @@ const delErr = (err) =>{
 }
 $('#projects').on('click', '.deleteProject', function (event) {
   removeProject($(this).parent())
+})
+$('#projects').on('hover', '.deleteProject', function (event) {
+  console.log('beep')
+  $(this).css('color:red')
+})
+$('#projects').on('click', '.collection-item', function (event) {
+  // if(event.target.hasClass('material-icons')){
+  //   console.log('stopped')
+  //   return
+  // }
+ if( event.target.classList.contains('material-icons')){
+   return
+ }
+ window.location.href = `/project/${$(this).attr('data')}`
 })
 const removeProject = ($project) => {
   $project.remove()
