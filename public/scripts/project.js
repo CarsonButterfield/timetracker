@@ -175,7 +175,7 @@ const projectID = window.location.pathname.split('/')[2];
 // SHow project details
 const getProject = (id) => {
     // console.log({id})
-    console.log(`api/v1/project/${id} is running`)
+    console.log(`api/v1/project/${id} is running`);
     fetch(`../api/v1/project/${id}`, {
       method: 'GET',
       credentials: 'include',
@@ -304,10 +304,19 @@ const buildTable = ()=>{
 const toggleEditMode = (event)=>{
     console.log("toggleEditMode()")
     console.log(event.target);
-    selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
-    console.log("selectedDay: " + selectedDay);
-    selectedDayUTC = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
-    console.log("selectedDayUTC: " + selectedDayUTC);
+    console.log(event.target.parentNode.parentNode.parentNode);
+    console.log(event.target.parentNode.parentNode.parentNode.tagName);
+    console.log(event.target.parentNode.parentNode.parentNode.tagName === 'TR');
+
+    if (event.target.parentNode.parentNode.parentNode.tagName === 'TR') {
+        selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
+        selectedDay = new Date(selectedDay).toISOString();
+        console.log("selectedDay: " + selectedDay);
+    }
+    // selectedDay = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
+    // selectedDay = new Date(selectedDay).toISOString();
+    // console.log("selectedDay: " + selectedDay);
+
 
 
     $(event.target.parentNode).toggleClass("half-invisible");
@@ -343,7 +352,7 @@ const deleteDayRecord = ()=> {
     fetch(`../api/v1/remove/${projectID}/${selectedDay}`, {
       method: 'PUT',
       credentials: 'include',
-      headers: {
+      headers: {    
         'Content-Type': 'application/json',
       }
     })
