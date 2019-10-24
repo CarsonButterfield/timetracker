@@ -1,10 +1,4 @@
-ul{
-    width:100vw;
-    position: fixed;
-    bottom:0px;
-    border-top:1px solid black;
-    
-}
+
 li {
 display: flex;
 flex-direction: row;

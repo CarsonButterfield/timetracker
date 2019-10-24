@@ -8,13 +8,14 @@ $('#new-project').on('submit',(event)=>{
         description:$('#description').val(),
         startDate: $('#startDate').val(),
         payRate: $('#payRate').val(),
-        currency:$('#currency').val(),
+        currency:$('#currency').children('option:selected').val(),
         extraHoursTime:$('#extraHoursTime').val(),
         extraHoursPayRate:$('#extraHoursPayRate').val(),
         timeLimitNumber:$('#timeLimitNumber').val(),
         timeLimitUnit:$('#timeLimitUnit').val(),
        
     }
+    console.log(projectObject)
     $.ajax({
         xhrFields: {
             withCredentials: true
@@ -33,3 +34,5 @@ const onSuccess = (res) => {
 const onError = (err) => {
     console.log(err)
 }
+$('.datepicker').datepicker();
+$('select').formSelect();
