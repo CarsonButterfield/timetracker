@@ -46,12 +46,12 @@ const newTimeStamp = (req, res) => {
         let timeStampObject = foundProject.workingTime[foundProject.workingTime.length-1];
 
          res.json({
-             status: 201,   
+             status: 201,
              data: timeStampObject,
              newTimeStamp: newTimeStamp,
          })
     })
-}
+}       
 
 
 const newStopTime = (req, res) => {
