@@ -1,6 +1,172 @@
 // global variable
 var project;
 var historyData = [];
+var selectedDay;
+
+// TIMER START //
+
+var timeStampId;
+var stop = false;
+var totalMinutes = 1;
+
+var digitSegments = [
+    [1,2,3,4,5,6],
+    [2,3],
+    [1,2,7,5,4],
+    [1,2,7,3,4],
+    [6,7,2,3],
+    [1,6,7,3,4],
+    [1,6,5,4,3,7],
+    [1,2,3], 
+    [1,2,3,4,5,6,7],
+    [1,2,7,3,6]
+]
+
+
+function startTimer() {
+  console.log("Timer has started");
+  var _hours = document.querySelectorAll('.hours');
+  var _minutes = document.querySelectorAll('.minutes');  
+  setNumber(_hours[0], 0, 1);
+  setNumber(_hours[1], 0, 1);
+  setNumber(_minutes[0], 0, 1);
+  setNumber(_minutes[1], 0, 1);
+
+  function updateTime() {
+    const everyMinute = setInterval(()=>{
+      if (stop === false){
+        console.log("updating timer");
+        let hourFirstDidgit = (totalMinutes - (totalMinutes%60))/60%10;
+        let hourSecondDidgit = ((totalMinutes - (totalMinutes%60))/60 - hourFirstDidgit)/10;
+        let minutesFirstDighit = (totalMinutes%60)%10;
+        let minutesSecondDighit = ((totalMinutes%60) - minutesFirstDighit)/10;
+        setNumber(_hours[0], hourFirstDidgit, 1);
+        setNumber(_hours[1], hourSecondDidgit, 1);
+        setNumber(_minutes[0], minutesSecondDighit, 1);
+        setNumber(_minutes[1], minutesFirstDighit, 1); 
+        totalMinutes ++;
+      } else {
+        console.log("clearing interval");
+        clearInterval(everyMinute);
+      }
+    }, 6000)
+  }
+  updateTime();
+
+};
+
+var setNumber = function(digit, number, on) {
+  var segments = digit.querySelectorAll('.segment');
+  var current = parseInt(digit.getAttribute('data-value'));
+
+
+  // only switch if number has changed or wasn't set
+  if (!isNaN(current) && current != number) {
+    // unset previous number
+    digitSegments[current].forEach(function(digitSegment, index) {
+      setTimeout(function() {
+        segments[digitSegment-1].classList.remove('on');
+      }, index*45)
+    });
+  }
+  
+  if (isNaN(current) || current != number) {
+    // set new number after
+    setTimeout(function() {
+      digitSegments[number].forEach(function(digitSegment, index) {
+        setTimeout(function() {
+          segments[digitSegment-1].classList.add('on');
+        }, index*45)
+      });
+    }, 250);
+    digit.setAttribute('data-value', number);
+  }
+}
+
+
+// for StartTime
+const onSuccess = (res) => {
+  console.log(res);
+  timeStampId = res.data._id;
+  startTimer();
+}
+
+const onError = (err) => {
+  console.log(err)
+}
+
+// for StopTime
+const onSuccess2 = (res) => {
+  console.log(res);
+  console.log("Stop Timer");
+}
+
+
+// Listen to Start button: 
+$('#start-time').on('click', ()=>{
+    stop = false;
+    totalMinutes = 1;
+    let $projectTopic = $('#topic').val();
+    // if projectTopic field is not empty
+    if($projectTopic !== '') {
+
+      // create timeStamp object in DB
+      event.preventDefault()
+ 
+      let timeObject = {
+        "startTime" : new Date().toLocaleString(),
+        "endTime": new Date().toLocaleString(),
+        "day": new Date().toLocaleDateString(),
+        "projectTopic": $projectTopic
+      }
+
+      // get projectID from url
+      const projectID = window.location.pathname.split('/')[2];
+
+      $.ajax({
+        xhrFields: {
+            withCredentials: true
+         },
+        url: `/api/v1/startTime/${projectID}`,
+        method: 'POST',
+        data: timeObject,
+        success: onSuccess,
+        error: onError
+    })
+      
+    } else {
+        $('#topic').toggleClass("alert");
+        $('#topic').attr('value', "Enter your project topic please")
+    }
+});
+
+
+// Listen to STOP button
+$('#stop-time').on('click', ()=>{
+  stop = true;
+  $('.segment').removeClass('on');
+  $('.digit').removeAttr('data-value');
+  $.ajax({
+    xhrFields: {
+        withCredentials: true
+     },
+    url: `/api/v1/stopTime/${projectID}/${timeStampId}/`,
+    method: 'PUT',
+    success: onSuccess2,
+    error: onError
+})
+    .then(location.reload(false))
+}
+)
+
+// Listen to input focus to togle alert class
+$('#topic').on('focus', ()=>{
+    $('#topic').attr('value', "")
+    $('#topic').removeClass("alert");
+
+})
+
+// TIMER END //
 
 
 const projectID = window.location.pathname.split('/')[2];
@@ -31,9 +197,6 @@ const handleSuccess = (data) => {
     console.log("project data:==>>>>");
     console.log(project);
 
-    // console.log(data);
-    // console.log(data.projectName);
-    // console.log($('#project-head h2'));
     $('#project-head h2').text(data.projectName);
     $('#project-head p').text(data.companyName);
     $('#project-description').text(data.description);
@@ -79,11 +242,12 @@ const getHistoryData = ()=>{
             workingTimeTotal += workingTimeMinutes;
             topicList.push(record.projectTopic);
         })
+        let uniqueTopics = [...new Set(topicList)];
 
         let dayObject = {
             day: day,
             workingTime: workingTimeTotal,
-            topics: topicList,
+            topics: uniqueTopics,
         }
 
         historyData.push(dayObject);
@@ -104,8 +268,7 @@ const getHistoryData = ()=>{
                 money = Math.round(extraHoursTime*payRate + (day.workingTime - extraHoursTime)*payRateExtra);
             } 
             day.money = money;
-        });
-        
+        }); 
     }
 
     countMoney();
@@ -114,7 +277,9 @@ const getHistoryData = ()=>{
 }
 
 const buildTable = ()=>{
-    historyData.forEach((day)=>{
+    console.log("building a table")
+    $('tbody').empty();
+    historyData.forEach((day)=> {
         let hours = Math.floor(day.workingTime/60);
         let minutes = day.workingTime - (Math.floor(day.workingTime/60)*60);
         let date = new Date(day.day).toDateString();
@@ -123,9 +288,9 @@ const buildTable = ()=>{
                 <td>${date}</td>
                 <td>${day.topics.join(', ')}
                     <div class="buttons">
-                        <a id="edit-button" class="waves-effect waves-light btn edit-mode-button invisible">edit</a>
-                        <a id="delete-button" class="waves-effect waves-light btn edit-mode-button invisible">delete</a>
-                        <a id="cancel-button" class="waves-effect waves-light btn edit-mode-button invisible">cancel</a>
+                    <a id="edit-button" class="waves-effect waves-light btn edit-mode-button invisible">edit</a>
+                    <a id="delete-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-delete">delete</a>
+                    <a id="cancel-button" class="waves-effect waves-light btn edit-mode-button invisible">cancel</a>
                     </div>
                 </td>
                 <td>${hours}:${minutes}</td>
@@ -139,6 +304,12 @@ const buildTable = ()=>{
 const toggleEditMode = (event)=>{
     console.log("toggleEditMode()")
     console.log(event.target);
+    selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
+    console.log("selectedDay: " + selectedDay);
+    selectedDayUTC = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
+    console.log("selectedDayUTC: " + selectedDayUTC);
+
+
     $(event.target.parentNode).toggleClass("half-invisible");
     $(event.target).find('#edit-button').toggleClass('invisible');
     $(event.target).find('#delete-button').toggleClass('invisible');
@@ -157,13 +328,54 @@ const removeInvisible = ()=>{
     $(event.target.parentNode).find('#cancel-button').toggleClass('invisible');
 
 }
+
+// success function for day deleting
+const handleSuccess3 = (data) => {
+    console.log("day was deleted");
+    location.reload(false);
+    console.log("page was reloaded");
+}
+
+
+// remove the record for the day:
+const deleteDayRecord = ()=> {
+    console.log(`api/v1/remove/${projectID}/${selectedDay} is running`)
+    fetch(`../api/v1/remove/${projectID}/${selectedDay}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(dataStream => dataStream.json())
+      .then(res => {
+        console.log({res});
+        handleSuccess3(res.data);
+      })
+      .catch(err => console.log(err));
+}
+
+
 //Listen to click
 $('tbody').on('click', 'tr', toggleEditMode);
-$('tbody').on('focusout', 'tr', function () {
-    $(this).removeClass('half-invisible');
-  });
+// $('tbody').on('focusout', 'tr', function () {
+//     $(this).removeClass('half-invisible');
+//   });
 
 // Listen to cancel button
 $('tbody').on('click', '#cancel-button', removeInvisible);
-// $('#cancel-button').click(removeInvisible);
 
+
+
+// Modal listener
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+
+
+// Listen to DELETE button:
+$('tbody').on('click', '#delete-button', removeInvisible);
+
+
+// Listen to delete in Modal window:
+$('#delete-confirmation').on('click', deleteDayRecord);
