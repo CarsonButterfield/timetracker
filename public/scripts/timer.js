@@ -1,3 +1,4 @@
+/* 
 var timeStampId;
 var stop = false;
 var totalMinutes = 1;
@@ -147,7 +148,7 @@ $('#stop-time').on('click', ()=>{
     method: 'PUT',
     success: onSuccess2,
     error: onError
-})
+}).then(projectModule.buildTable())
 }
 )
 
@@ -159,3 +160,4 @@ $('#topic').on('focus', ()=>{
 })
 
 
+ */

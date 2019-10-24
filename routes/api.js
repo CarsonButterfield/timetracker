@@ -29,4 +29,10 @@ router.post('/startTime/:projectId', ctrl.create.newTimeStamp);
 // set end time
 router.put('/stopTime/:projectId/:workingTimeId', ctrl.create.newStopTime);
 
+
+//------------------------------- DELETE DATA --------------------------//
+
+// remove all record for particular day
+// router.delete('/remove/:projectId/:day', ctrl.remove.dayRecords);
+
 module.exports = router;

@@ -95,6 +95,23 @@
         
     </section>
     
+<!-- Modal TEST -->
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal-delete">Modal</a>
+
+<!-- Modal Structure -->
+<div id="modal-delete" class="modal">
+  <div class="modal-content">
+    <h4>Are you sure you want to delete this record?</h4>
+    <p>It'll be impossible to restore it.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+
+  </div>
+</div>
+
     <table class="striped" id="history-table">
             <thead>
               <tr>
@@ -113,7 +130,7 @@
                                     <!-- <button type="button" id="edit-button">edit<button>
                                     <button type="button" id="delete-button">delete<button> -->
                                     <a id="edit-button" class="waves-effect waves-light btn edit-mode-button invisible">edit</a>
-                                    <a id="delete-button" class="waves-effect waves-light btn edit-mode-button invisible">delete</a>
+                                    <a id="delete-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-delete">delete</a>
                                     <a id="cancel-button" class="waves-effect waves-light btn edit-mode-button invisible">cancel</a>
                                 </div>
                             </td>
