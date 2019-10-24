@@ -21,9 +21,18 @@ const showProject = (req, res)=> {
     })
 }
 
-
+const deleteProject = (req,res) => {
+    console.log('deleting')
+    if(!req.session.currentUser){
+        res.redirect('/')
+        return
+    }
+    console.log(req.params.projectId)
+    db.User.update({_id:req.params.id},{$pull:{projects:{$in:{_id:{$eq:req.params.projectId}}}}})
+    res.json({status:200,data:"yeet"})
+}
 
 module.exports = {
     showProject,
-
+    deleteProject,
   };
