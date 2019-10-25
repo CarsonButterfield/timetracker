@@ -287,7 +287,8 @@ const buildTable = ()=>{
         let templ = `
             <tr>
                 <td>${date}</td>
-                <td>${day.topics.join(', ')}
+                <td>
+                    <div class="topic inline-container">${day.topics.join(', ')}</div>
                     <div class="buttons">
                     <a id="edit-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-edit">edit</a>
                     <a id="delete-button" class="waves-effect waves-light btn edit-mode-button modal-trigger invisible" href="#modal-delete">delete</a>
@@ -315,6 +316,8 @@ const toggleEditMode = (event)=>{
         console.log("selectedDay: " + selectedDay);
         selectedTopic = $(event.target.parentNode.parentNode.parentNode).children().eq(1).children().eq(0).text();
         console.log("selectedTopic: " + selectedTopic);
+        $('#topics').val(selectedTopic);
+
 
     }
     // selectedDay = new Date($(event.target.parentNode.parentNode.parentNode).find(">:first-child").text());
@@ -370,8 +373,8 @@ const deleteDayRecord = ()=> {
 
 
 const fillEditModal = ()=>{
+  $('#topics').attr('value', selectedTopic);
     removeInvisible();
-    $('#topics').attr('value', selectedTopic);
     console.log("topic was filled");
 
 }
