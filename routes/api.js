@@ -29,6 +29,8 @@ router.post('/startTime/:projectId', ctrl.create.newTimeStamp);
 // set end time
 router.put('/stopTime/:projectId/:workingTimeId', ctrl.create.newStopTime);
 
+// edit start/end time:
+router.put('/edit/:projectId/:timeId/:topic/:startTime/:endTime', ctrl.create.updateDayRecord);
 
 //------------------------------- DELETE DATA --------------------------//
 

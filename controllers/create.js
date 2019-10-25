@@ -61,7 +61,7 @@ const newStopTime = (req, res) => {
         }
         const foundProject = user.projects.find(project => project._id.toString() === req.params.projectId)
         console.log("project ID ===>> " + foundProject);
-        const foundWorkingTime = foundProject.workingTime.find(time => time._id.toString() === req.params.workingTimeId)
+        const foundWorkingTime = foundProject.workingTime.find(time => time._id.toString() === req.params.workingTimeId)        
         let newStopTime = new Date();
         foundWorkingTime.endTime = newStopTime;
         user.save((err, user)=>{
@@ -77,8 +77,40 @@ const newStopTime = (req, res) => {
     })
 }
 
+// Update day record 
+const updateDayRecord = (req, res)=> {
+    console.log("let's edit this recorf...");
+    db.User.findById(req.session.currentUser, (err, user)=>{
+        if(err){console.log(err)
+            return
+        }
+        const foundProject = user.projects.find(project => project._id.toString() === req.params.projectId)
+        console.log("project ID ===>> " + foundProject);
+        const foundWorkingTimeRecord = foundProject.workingTime.find(time => time._id.toString() === req.params.timeId);
+        console.log("foundWorkingTimeRecord ===>>>>");
+        console.log(foundWorkingTimeRecord);
+        foundWorkingTimeRecord.projectTopic = req.params.topic;
+        foundWorkingTimeRecord.startTime = req.params.startTime;
+        console.log("endTime ===>>> " + req.params.endTime);
+        foundWorkingTimeRecord.endTime = req.params.endTime;
+        console.log("updated foundWorkingTimeRecord ===>>>>");
+        console.log(foundWorkingTimeRecord);
+        
+        user.save((err, user)=>{
+            if (err) console.log(err);
+            // console.log(user);
+        })
+
+        res.json({
+            status: 201,
+            data: foundProject,
+        })
+    })
+}
+
 module.exports = {
     newProject,
     newTimeStamp,
     newStopTime,
+    updateDayRecord,
 }

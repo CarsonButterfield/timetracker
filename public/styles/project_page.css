@@ -62,6 +62,10 @@ body {
     margin: 10px;
 }
 
+.butn:focus{
+  background-color: rgba(79, 156, 58,0.7);
+}
+
 /* CLOCK SECTION START */
 .clock {
     height:100px;
@@ -279,3 +283,5 @@ text-align: center;
 .inline-container {
   display: inline;
 }
+
+
