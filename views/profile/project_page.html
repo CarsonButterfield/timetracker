@@ -18,6 +18,7 @@
 
     <!-- <script defer src="/scripts/js/admin.js"></script> -->
     <!-- Main CSS -->
+    <link rel="stylesheet" href="/styles/nav-styles.css">
     <link rel="stylesheet" href="/styles/project_page.css">
 
     <!-- Main JS -->
@@ -27,6 +28,19 @@
     <title>Project Page</title>
 </head>
 <body>
+        <header>
+                <nav>
+                        <div class="nav-wrapper">
+                            <a href="#" class="brand-logo">Trakr</a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="/profile">Profile</a></li>
+                            <li><a href="/new-project">New Project</a></li>
+                            <li><a href="/api/v1/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                        </nav> 
+        </header>
+        <main>
     <section id="project-head">
             <h2>Project Name</h2>
             <p>for Company Name</p>
@@ -274,6 +288,6 @@
             </tbody>
           </table>   
     
-
+        </main>
 </body>
 </html>
