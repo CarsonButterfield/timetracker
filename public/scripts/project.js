@@ -50,7 +50,7 @@ function startTimer() {
         console.log("clearing interval");
         clearInterval(everyMinute);
       }
-    }, 60000)
+    }, 1000)
   }
   updateTime();
 
