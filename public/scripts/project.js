@@ -192,6 +192,7 @@ const getProject = (id) => {
       .catch(err => console.log(err));
 }
 
+// build a project page
 const handleSuccess = (data) => {
     project = data;
     // data set
@@ -207,9 +208,6 @@ const handleSuccess = (data) => {
 
     // build a table
     buildTable();
-
-    
-
 }
 
 getProject(projectID)
@@ -236,10 +234,12 @@ const getHistoryData = ()=>{
         // extract workin hours and summ them
         let workingTimeTotal = 0;
         let topicList = [];
+        let timeIntervalId = [];
         dayList.forEach((record) => {
             let startTime = new Date(record.startTime);
             let endTime = new Date(record.endTime);
             let workingTimeMinutes = Math.abs(Math.round((endTime - startTime)/(1000*60)));
+            timeIntervalId.push(record._id);
             workingTimeTotal += workingTimeMinutes;
             topicList.push(record.projectTopic);
         })
@@ -247,6 +247,7 @@ const getHistoryData = ()=>{
 
         let dayObject = {
             day: day,
+            timeIntervalIdList: timeIntervalId,
             workingTime: workingTimeTotal,
             topics: uniqueTopics,
         }
@@ -311,12 +312,12 @@ const toggleEditMode = (event)=>{
     console.log(event.target.parentNode.parentNode.parentNode.tagName === 'TR');
 
     if (event.target.parentNode.parentNode.parentNode.tagName === 'TR') {
-        selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
-        selectedDay = new Date(selectedDay).toISOString();
-        console.log("selectedDay: " + selectedDay);
-        selectedTopic = $(event.target.parentNode.parentNode.parentNode).children().eq(1).children().eq(0).text();
-        console.log("selectedTopic: " + selectedTopic);
-        $('#topics').val(selectedTopic);
+      selectedDay = $(event.target.parentNode.parentNode.parentNode).find(">:first-child").text();
+      selectedDay = new Date(selectedDay).toISOString();
+      console.log("selectedDay: " + selectedDay);
+      selectedTopic = $(event.target.parentNode.parentNode.parentNode).children().eq(1).children().eq(0).text();
+      console.log("selectedTopic: " + selectedTopic);
+      $('#topics').val(selectedTopic);
 
 
     }
@@ -372,12 +373,12 @@ const deleteDayRecord = ()=> {
 }
 
 
-const fillEditModal = ()=>{
-  $('#topics').attr('value', selectedTopic);
-    removeInvisible();
-    console.log("topic was filled");
+// const fillEditModal = ()=>{
+//   $('#topics').attr('value', selectedTopic);
+//     removeInvisible();
+//     console.log("topic was filled");
 
-}
+// }
 
 //Listen to click
 $('tbody').on('click', 'tr', toggleEditMode);
@@ -408,16 +409,75 @@ $('#delete-confirmation').on('click', deleteDayRecord);
 
 
 // Listen to Edit button:
-$('tbody').on('click', '#edit-button', fillEditModal);
+$('tbody').on('click', '#edit-button', removeInvisible);
 
 
 
-
+const onSuccess5 = (res) => {
+  console.log("Record was successfully updated");
+  location.reload(false);
+}
 
 // Update record
 
 const updateRecord = ()=> {
     event.preventDefault();
+    // get timeInterval ID:
+    let timeId = historyData.find(dayObject => new Date(dayObject.day).toISOString() == selectedDay);
+    timeId = timeId.timeIntervalIdList[0];
+    let editedTopic = $('#topics').val();
+    let startHour = $("#startHour").children('option:selected').val();
+    let startMinutes = $("#startMinutes").children('option:selected').val();
+    let endHour = $("#endHour").children('option:selected').val()
+    let endMinutes = $("#endMinutes").children('option:selected').val();
+    let startTime;
+    if (Number(startHour)+7 <24) {
+      startTime = selectedDay.split('T')[0] +"T"+ (Number(startHour)+7) + ':' + startMinutes + ":00.000Z";
+    } else {
+      let dayList = selectedDay.split('T')[0].split('-');
+      let day = dayList[0]+"-"+dayList[1]+"-"+ (Number(dayList[2])+1);
+      startTime = day + "T" + (Number(startHour)+7) + ':' + startMinutes + ":00.000Z";
+    }
+    let endTime;
+    if (Number(endHour)+7 < 24) {
+      endTime = selectedDay.split('T')[0] +"T"+ (Number(endHour)+7) + ':' + endMinutes + ":00.000Z";
+    } else {
+      let dayList = selectedDay.split('T')[0].split('-');
+      let day = dayList[0]+"-"+dayList[1]+"-"+(Number(dayList[2])+1);
+      endTime = day + "T" + (Number(endHour)+7) + ':' + endMinutes + ":00.000Z";
+    }
+    console.log(projectID);
+    console.log(timeId);
+    console.log(editedTopic);
+    console.log(startTime);
+    console.log(endTime);
+  //   $.ajax({
+  //     xhrFields: {
+  //         withCredentials: true
+  //      },
+  //     url: `../api/v1/edit/${projectID}/${timeId}/${editedTopic}/${startTime}/${endTime}`,
+  //     method: 'PUT',
+  //     success: onSuccess5,
+  //     error: onError
+  // })
+
+    console.log(`/edit/:projectId/:timeId/:topic/:startTime/:endTime`);
+    fetch(`../api/v1/edit/${projectID}/${timeId}/${editedTopic}/${startTime}/${endTime}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(dataStream => dataStream.json())
+      .then(res => {
+        console.log({res});
+        onSuccess5();
+      })
+      // .then(location.reload(false))
+      // .catch(err => console.log(err));
+
+
     console.log('Form was submitted');
 }
 
