@@ -264,11 +264,17 @@ const getHistoryData = ()=>{
 
         historyData.forEach((day)=>{
             let money = 0;
-            if (day.workingTime<=extraHoursTime){
+            // check if there is extra payment 
+            if (project.extraHoursTime && project.extraHoursPayRate) {
+              if (day.workingTime<=extraHoursTime){
                 money = Math.round(day.workingTime*payRate);
-            } else {
+              } else {
                 money = Math.round(extraHoursTime*payRate + (day.workingTime - extraHoursTime)*payRateExtra);
-            } 
+              }; 
+            } else {
+              money = Math.round(day.workingTime*payRate);
+            }
+            
             day.money = money;
         }); 
     }
@@ -373,13 +379,6 @@ const deleteDayRecord = ()=> {
 }
 
 
-// const fillEditModal = ()=>{
-//   $('#topics').attr('value', selectedTopic);
-//     removeInvisible();
-//     console.log("topic was filled");
-
-// }
-
 //Listen to click
 $('tbody').on('click', 'tr', toggleEditMode);
 // $('tbody').on('focusout', 'tr', function () {
@@ -425,32 +424,30 @@ const updateRecord = ()=> {
     // get timeInterval ID:
     let timeId = historyData.find(dayObject => new Date(dayObject.day).toISOString() == selectedDay);
     timeId = timeId.timeIntervalIdList[0];
+
     let editedTopic = $('#topics').val();
     let startHour = $("#startHour").children('option:selected').val();
     let startMinutes = $("#startMinutes").children('option:selected').val();
     let endHour = $("#endHour").children('option:selected').val()
     let endMinutes = $("#endMinutes").children('option:selected').val();
-    let startTime;
-    if (Number(startHour)+7 <24) {
-      startTime = selectedDay.split('T')[0] +"T"+ (Number(startHour)+7) + ':' + startMinutes + ":00.000Z";
-    } else {
-      let dayList = selectedDay.split('T')[0].split('-');
-      let day = dayList[0]+"-"+dayList[1]+"-"+ (Number(dayList[2])+1);
-      startTime = day + "T" + (Number(startHour)+7) + ':' + startMinutes + ":00.000Z";
-    }
-    let endTime;
-    if (Number(endHour)+7 < 24) {
-      endTime = selectedDay.split('T')[0] +"T"+ (Number(endHour)+7) + ':' + endMinutes + ":00.000Z";
-    } else {
-      let dayList = selectedDay.split('T')[0].split('-');
-      let day = dayList[0]+"-"+dayList[1]+"-"+(Number(dayList[2])+1);
-      endTime = day + "T" + (Number(endHour)+7) + ':' + endMinutes + ":00.000Z";
-    }
+
+    let timeNumbers = [startHour, startMinutes, endMinutes, endMinutes];
+    timeNumbers.forEach((number)=>{
+      if(String(number).length < 2){
+        number = "0" + number;
+      }
+    })
+    let startTimeRaw = selectedDay.split('T')[0] + " " + startHour + ":" + startMinutes;
+    let endTimeRaw = selectedDay.split('T')[0] + " " + endHour + ":" + endMinutes;
+
+    let startTimeISO = new Date(startTimeRaw).toISOString();
+    let endTimeISO = new Date(endTimeRaw).toISOString();
+
     console.log(projectID);
     console.log(timeId);
     console.log(editedTopic);
-    console.log(startTime);
-    console.log(endTime);
+    console.log(startTimeISO);
+    console.log(endTimeISO);
   //   $.ajax({
   //     xhrFields: {
   //         withCredentials: true
@@ -462,7 +459,7 @@ const updateRecord = ()=> {
   // })
 
     console.log(`/edit/:projectId/:timeId/:topic/:startTime/:endTime`);
-    fetch(`../api/v1/edit/${projectID}/${timeId}/${editedTopic}/${startTime}/${endTime}`, {
+    fetch(`../api/v1/edit/${projectID}/${timeId}/${editedTopic}/${startTimeISO}/${endTimeISO}`, {
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -474,7 +471,6 @@ const updateRecord = ()=> {
         console.log({res});
         onSuccess5();
       })
-      // .then(location.reload(false))
       // .catch(err => console.log(err));
 
 
